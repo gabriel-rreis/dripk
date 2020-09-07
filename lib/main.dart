@@ -31,14 +31,6 @@ class MethodsPage extends StatefulWidget {
 }
 
 class _MethodsPageState extends State<MethodsPage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,8 +90,7 @@ class _MethodsPageState extends State<MethodsPage> {
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
                         'Viverra a suscipit tincidunt sem eu pellentesque. '
-                            'At in vitae orci amet, est rutrum.'
-                    ),
+                        'At in vitae orci amet, est rutrum.'),
                   ),
                 ],
               ),
@@ -108,3 +99,6 @@ class _MethodsPageState extends State<MethodsPage> {
         ));
   }
 }
+
+// TODO: Add custom font (https://flutter.dev/docs/cookbook/design/fonts)
+// TODO: Add theme (https://flutter.dev/docs/cookbook/design/themes)
