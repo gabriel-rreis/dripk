@@ -1,3 +1,3 @@
 # dripk
 
-Trying Flutter with for a coffee lovers app.
+Trying Flutter app for coffee lovers.
