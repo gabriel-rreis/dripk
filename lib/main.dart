@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'mocks.dart';
 
 void main() {
   runApp(DripkApp());
@@ -8,29 +9,62 @@ class DripkApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Dripk',
       theme: ThemeData(
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          colorScheme: ColorScheme.fromSwatch(
-            primarySwatch: Colors.brown,
-            accentColor: Colors.lightBlue,
-            brightness: Brightness.dark,
-          )),
-      home: MethodsPage(title: 'Flutter Demo Home Page'),
+        brightness: Brightness.dark,
+        primarySwatch: Colors.brown,
+        accentColor: Colors.lightBlue,
+        textTheme: TextTheme(
+          headline6: TextStyle(fontSize: 20.0, fontFamily: 'Staatliches'),
+          overline: TextStyle(fontSize: 10.0, fontFamily: 'Open Sans'),
+          bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Open Sans'),
+        ),
+      ),
+      home: MethodsPage(),
     );
   }
 }
 
-class MethodsPage extends StatefulWidget {
-  MethodsPage({Key key, this.title}) : super(key: key);
+class MethodsPage extends StatelessWidget {
+  MethodsPage({Key key}) : super(key: key);
 
-  final String title;
+  Widget _listItemBuilder(BuildContext context, int index) {
+    return new Container(
+      padding: EdgeInsets.all(8),
+      height: 467,
+      width: double.maxFinite,
+      child: Card(
+        elevation: 5,
+        child: InkWell(
+          splashColor: Theme.of(context).primaryColor,
+          onTap: () {},
+          child: Column(
+            children: [
+              ListTile(
+                subtitle: Text(
+                  methods[index].title,
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                title: Text(
+                  methods[index].subtitle,
+                  style: Theme.of(context).textTheme.overline,
+                ),
+              ),
+              Image(
+                image: AssetImage(methods[index].imagePath),
+                fit: BoxFit.cover,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(methods[index].description),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
-  @override
-  _MethodsPageState createState() => _MethodsPageState();
-}
-
-class _MethodsPageState extends State<MethodsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,42 +93,9 @@ class _MethodsPageState extends State<MethodsPage> {
           ),
         ),
         body: SafeArea(
-          child: Container(
-            padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
-            height: 425,
-            width: double.maxFinite,
-            child: Card(
-              elevation: 5,
-              child: Column(
-                children: [
-                  ListTile(
-                    title: Text(
-                      'Two-line ListTile',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    subtitle: Text(
-                      'Here is a second line',
-                      style: Theme.of(context).textTheme.overline,
-                    ),
-                    // trailing: CircleAvatar(
-                    //   backgroundImage: NetworkImage(
-                    //     'https://placeimg.com/640/480/any'
-                    //   ),
-                    // )
-                  ),
-                  Image.network(
-                    'https://placeimg.com/640/480/any',
-                    fit: BoxFit.cover,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                        'Viverra a suscipit tincidunt sem eu pellentesque. '
-                        'At in vitae orci amet, est rutrum.'),
-                  ),
-                ],
-              ),
-            ),
+          child: ListView.builder(
+            itemCount: methods.length,
+            itemBuilder: _listItemBuilder,
           ),
         ));
   }
